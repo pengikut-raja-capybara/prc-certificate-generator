@@ -94,10 +94,10 @@ Semua proses rendering grafis, pembuatan PDF, kalkulasi digest, hingga penandata
 
 ```mermaid
 flowchart LR
-    S1["1. Set Up Template\n(Canvas WYSIWYG)"] --> S2["2. Input Data & Signer\n(ExcelJS / CSV)"]
-    S2 --> S3["3. Generate\n(Kompilasi PDF Dasar)"]
-    S3 --> S4["4. Signing\n(PAdES Digital Stamp)"]
-    S4 --> S5["5. Download\n(Arsip ZIP Sah & Manifes)"]
+    S1["1. Set Up Template<br/>(Canvas WYSIWYG)"] --> S2["2. Input Data & Signer<br/>(ExcelJS / CSV)"]
+    S2 --> S3["3. Generate<br/>(Kompilasi PDF Dasar)"]
+    S3 --> S4["4. Signing<br/>(PAdES Digital Stamp)"]
+    S4 --> S5["5. Download<br/>(Arsip ZIP Sah & Manifes)"]
 ```
 
 1. **Step 1: Set Up Template**: Rancang tata letak sertifikat, atur teks dinamis/statis, masukkan latar belakang, dan tentukan letak slot stempel tanda tangan.
@@ -215,6 +215,9 @@ Aplikasi ini menerapkan protokol pengesahan dokumen **`LIGHTSIGN-v1`**:
 - **Signer Manifest Hashing**: Setiap pejabat yang tercantum pada slot sertifikat memiliki hash identitas unik yang divalidasi silang saat stempel visual ditempelkan.
 - **Kunci Publik & Sertifikat**: Pasangan kunci RSA-2048 berstandar X.509 v3 yang diterbitkan oleh institusi (Root CA) dan disimpan secara aman di keystore browser pengguna.
 - **Verifikasi Offline**: Informasi tanda tangan dan hash manifes dimuat di dalam QR Code stempel, memungkinkan verifikasi keaslian dokumen secara luring (*offline verification*) tanpa bergantung pada server verifikasi terpusat.
+
+> 🧮 **Dokumentasi Rumus & Notasi Formal**:  
+> Penjabaran lengkap mengenai rumus matematika persetujuan, notasi aljabar, kebijakan kuorum $k$-of-$n$, dan model biner PAdES dapat dibaca di **[docs/SIGNING_FORMULA.md](docs/SIGNING_FORMULA.md)**.
 
 ---
 

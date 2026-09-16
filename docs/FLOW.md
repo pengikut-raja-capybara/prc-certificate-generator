@@ -20,56 +20,56 @@ Alur kerja aplikasi dirancang dalam **5 Tahap Terpadu (Guided Stepper Workflow)*
 
 ```mermaid
 flowchart TD
-    Start([Mulai Aplikasi]) --> Step1[Langkah 1: Setup Template]
+    Start(["Mulai Aplikasi"]) --> Step1["Langkah 1: Setup Template"]
     
     subgraph S1["Langkah 1: WYSIWYG Template Designer"]
-        Step1 --> S1_Canvas[Kanvas Interaktif Fabric.js]
-        S1_Canvas --> S1_Bg[Upload Gambar Latar / Background]
-        S1_Canvas --> S1_Text[Tambah Teks Statis & Variabel Dinamis {{variabel}}]
-        S1_Canvas --> S1_Stamp[Tentukan Posisi Slot Stempel TTD & Style A/B/C]
-        S1_Stamp --> S1_Save[Simpan Template ke JSON / LocalStorage]
+        Step1 --> S1_Canvas["Kanvas Interaktif Fabric.js"]
+        S1_Canvas --> S1_Bg["Upload Gambar Latar / Background"]
+        S1_Canvas --> S1_Text["Tambah Teks Statis & Variabel Dinamis (nama, nomor, dll.)"]
+        S1_Canvas --> S1_Stamp["Tentukan Posisi Slot Stempel TTD & Style A/B/C"]
+        S1_Stamp --> S1_Save["Simpan Template ke JSON / LocalStorage"]
     end
     
-    S1_Save --> Step2[Langkah 2: Input Data & Signer]
+    S1_Save --> Step2["Langkah 2: Input Data & Signer"]
     
     subgraph S2["Langkah 2: Pengolahan Data & Penentuan Pejabat"]
-        Step2 --> S2_Format[Unduh Template Format Excel Otomatis]
-        S2_Format --> S2_Upload[Unggah File Data .xlsx atau .csv]
-        S2_Upload --> S2_Parse[Parser Cerdas ExcelJS: Trimming & Format Tanggal]
-        S2_Parse --> S2_Map[Petakan Pejabat Penandatangan ke Slot Stempel]
-        S2_Map --> S2_Table[Tinjau / Edit Data Penerima di Tabel]
+        Step2 --> S2_Format["Unduh Template Format Excel Otomatis"]
+        S2_Format --> S2_Upload["Unggah File Data .xlsx atau .csv"]
+        S2_Upload --> S2_Parse["Parser Cerdas ExcelJS: Trimming & Format Tanggal"]
+        S2_Parse --> S2_Map["Petakan Pejabat Penandatangan ke Slot Stempel"]
+        S2_Map --> S2_Table["Tinjau / Edit Data Penerima di Tabel"]
     end
     
-    S2_Table --> Step3[Langkah 3: Generate Base PDF]
+    S2_Table --> Step3["Langkah 3: Generate Base PDF"]
     
     subgraph S3["Langkah 3: Kompilasi Dokumen PDF Dasar"]
-        Step3 --> S3_Loop[Iterasi Tiap Baris Data Penerima]
-        S3_Loop --> S3_Replace[Substitusi Variabel {{nama}}, {{no_sertifikat}}, dll.]
-        S3_Replace --> S3_Compile[Render PDF Vektor Resolusi Tinggi via PDF-Lib]
-        S3_Compile --> S3_Hash[Hitung SHA-256 Digest Dokumen Dasar (h_D)]
-        S3_Hash --> S3_Preview[Pratinjau PDF Dasar di Modal Web]
+        Step3 --> S3_Loop["Iterasi Tiap Baris Data Penerima"]
+        S3_Loop --> S3_Replace["Substitusi Variabel Dinamis (nama, no_sertifikat, dll.)"]
+        S3_Replace --> S3_Compile["Render PDF Vektor Resolusi Tinggi via PDF-Lib"]
+        S3_Compile --> S3_Hash["Hitung SHA-256 Digest Dokumen Dasar (h_D)"]
+        S3_Hash --> S3_Preview["Pratinjau PDF Dasar di Modal Web"]
     end
     
-    S3_Preview --> Step4[Langkah 4: Multi-Signer PAdES Signing]
+    S3_Preview --> Step4["Langkah 4: Multi-Signer PAdES Signing"]
     
     subgraph S4["Langkah 4: Penandatanganan Kriptografis Bertingkat"]
-        Step4 --> S4_KeyCheck[Periksa Kunci X.509 / PKCS#12 di Browser Keystore]
-        S4_KeyCheck --> S4_Sign1[Batch Sign Pejabat 1 (Contoh: Dekan)]
-        S4_Sign1 --> S4_Lazy1[Lazy Stamping: Tempel Stempel Visual 1 & Signature #1]
-        S4_Lazy1 --> S4_Sign2[Batch Sign Pejabat 2 (Contoh: Rektor)]
-        S4_Sign2 --> S4_Lazy2[Lazy Stamping: Tempel Stempel Visual 2 & Signature #2]
-        S4_Lazy2 --> S4_Complete[Validasi Seluruh Kuorum Tanda Tangan Selesai]
+        Step4 --> S4_KeyCheck["Periksa Kunci X.509 / PKCS#12 di Browser Keystore"]
+        S4_KeyCheck --> S4_Sign1["Batch Sign Pejabat 1 (Contoh: Dekan)"]
+        S4_Sign1 --> S4_Lazy1["Lazy Stamping: Tempel Stempel Visual 1 & Signature #1"]
+        S4_Lazy1 --> S4_Sign2["Batch Sign Pejabat 2 (Contoh: Rektor)"]
+        S4_Sign2 --> S4_Lazy2["Lazy Stamping: Tempel Stempel Visual 2 & Signature #2"]
+        S4_Lazy2 --> S4_Complete["Validasi Seluruh Kuorum Tanda Tangan Selesai"]
     end
     
-    S4_Complete --> Step5[Langkah 5: Download & Distribusi]
+    S4_Complete --> Step5["Langkah 5: Download & Distribusi"]
     
     subgraph S5["Langkah 5: Pengemasan & Ekspor"]
-        Step5 --> S5_Pack[Kemas Semua PDF Sah ke Arsip ZIP via JSZip]
-        S5_Pack --> S5_Manifest[Sertakan Berkas Manifes Kriptografis .sig.json]
-        S5_Manifest --> S5_Export[Unduh Berkas ZIP ke Perangkat Lokal]
+        Step5 --> S5_Pack["Kemas Semua PDF Sah ke Arsip ZIP via JSZip"]
+        S5_Pack --> S5_Manifest["Sertakan Berkas Manifes Kriptografis .sig.json"]
+        S5_Manifest --> S5_Export["Unduh Berkas ZIP ke Perangkat Lokal"]
     end
     
-    S5_Export --> Finish([Selesai / Sertifikat Siap Didistribusikan])
+    S5_Export --> Finish(["Selesai / Sertifikat Siap Didistribusikan"])
 ```
 
 ---
@@ -81,29 +81,29 @@ Aplikasi dibangun berbasis arsitektur *clean state-driven* dengan **Zustand** se
 ```mermaid
 graph TB
     subgraph UI_Layer["Komponen Antarmuka (React 19)"]
-        Shell[AppShell & Header Stepper]
-        CanvasView[Editor Canvas & Tools]
-        DataView[InputDataStep & Spreadsheet UI]
-        GenView[GenerateStep & PDF Viewer]
-        SignView[SigningStep & Progress Modal]
-        DownloadView[DownloadStep & ZIP Exporter]
-        KeyModal[KeyManagerView / Keystore Hub]
+        Shell["AppShell & Header Stepper"]
+        CanvasView["Editor Canvas & Tools"]
+        DataView["InputDataStep & Spreadsheet UI"]
+        GenView["GenerateStep & PDF Viewer"]
+        SignView["SigningStep & Progress Modal"]
+        DownloadView["DownloadStep & ZIP Exporter"]
+        KeyModal["KeyManagerView / Keystore Hub"]
     end
 
     subgraph State_Layer["Manajemen Status (Zustand Stores)"]
-        EditorStore[editor-store\n- Canvas JSON\n- Elements, Variables\n- Stamp Slots\n- Active Zoom & History]
-        GenStore[generator-store\n- Recipient Data Rows\n- Signer Slot Mapping\n- Generated Base PDFs\n- Signed PDFs & Manifests]
-        KeysStore[keys-store\n- Local CA Certificate\n- Signer Keypairs\n- PKCS#12 Bundles]
+        EditorStore["editor-store<br/>- Canvas JSON<br/>- Elements, Variables<br/>- Stamp Slots<br/>- Active Zoom & History"]
+        GenStore["generator-store<br/>- Recipient Data Rows<br/>- Signer Slot Mapping<br/>- Generated Base PDFs<br/>- Signed PDFs & Manifests"]
+        KeysStore["keys-store<br/>- Local CA Certificate<br/>- Signer Keypairs<br/>- PKCS#12 Bundles"]
     end
 
     subgraph Core_Engine["Pustaka & Engine Klien"]
-        Fabric[Fabric.js v7\nVisual WYSIWYG]
-        ExcelEngine[ExcelJS\nSpreadsheet Parser/Exporter]
-        PDFRenderer[PDF-Lib & @libpdf/core\nPDF Assembly Engine]
-        StampEngine[Stamp Renderer\nQR Code & Visual Typography]
-        CryptoEngine[Node-Forge & Web Crypto\nX.509, RSA-2048, SHA-256]
-        StorageEngine[LocalForage\nBrowser IndexedDB Storage]
-        ZipEngine[JSZip\nBatch Archiving]
+        Fabric["Fabric.js v7<br/>Visual WYSIWYG"]
+        ExcelEngine["ExcelJS<br/>Spreadsheet Parser/Exporter"]
+        PDFRenderer["PDF-Lib & @libpdf/core<br/>PDF Assembly Engine"]
+        StampEngine["Stamp Renderer<br/>QR Code & Visual Typography"]
+        CryptoEngine["Node-Forge & Web Crypto<br/>X.509, RSA-2048, SHA-256"]
+        StorageEngine["LocalForage<br/>Browser IndexedDB Storage"]
+        ZipEngine["JSZip<br/>Batch Archiving"]
     end
 
     CanvasView --> EditorStore
@@ -176,6 +176,9 @@ sequenceDiagram
 
 ## 4. Proses Kriptografi Manifes Dokumen (`LIGHTSIGN-v1`)
 
+> 🧮 **Rumus Matematis Lengkap**:
+> Untuk penjabaran formal notasi matematika ($h_D$, $h_U$, $h_M$, $\sigma_i$, $N_{\text{valid}}$, kuorum $k$-of-$n$, dan model biner PAdES), silakan baca dokumen spesifikasi **[docs/SIGNING_FORMULA.md](SIGNING_FORMULA.md)**.
+
 Diagram berikut menjelaskan bagaimana integritas dokumen, daftar pejabat berwenang, dan bukti persetujuan diikat menjadi satu manifes digital anti-manipulasi:
 
 ```mermaid
@@ -192,21 +195,21 @@ flowchart TD
     end
 
     subgraph ManifestBuild["3. Pembentukan Payload Manifes (M)"]
-        HashDoc --> ManifestPayload["Canonical Payload Persetujuan:\nLIGHTSIGN-v1 | h_D | h_U | Timestamp"]
+        HashDoc --> ManifestPayload["Canonical Payload Persetujuan:<br/>LIGHTSIGN-v1 | h_D | h_U | Timestamp"]
         HashSigners --> ManifestPayload
         Timestamp --> ManifestPayload
         ManifestPayload -->|SHA-256| HashManifest["Digest Manifes (h_M)"]
     end
 
     subgraph DigitalSigning["4. Penandatanganan Kriptografi"]
-        HashManifest --> SignA["Tanda Tangan Pejabat A\nsig_A = Sign(sk_A, h_M)"]
-        HashManifest --> SignB["Tanda Tangan Pejabat B\nsig_B = Sign(sk_B, h_M)"]
+        HashManifest --> SignA["Tanda Tangan Pejabat A<br/>sig_A = Sign(sk_A, h_M)"]
+        HashManifest --> SignB["Tanda Tangan Pejabat B<br/>sig_B = Sign(sk_B, h_M)"]
         PrivKeyA["Private Key sk_A (RSA-2048)"] --> SignA
         PrivKeyB["Private Key sk_B (RSA-2048)"] --> SignB
     end
 
     subgraph OutputManifest["5. Berkas Manifes Akhir (.sig.json)"]
-        SignA --> ManifestJSON["Berkas Manifes Integritas:\n- Versi Protokol\n- Nilai Hash Dokumen (h_D)\n- Hash Daftar Pejabat (h_U)\n- Token Bukti Persetujuan (sig_i)\n- Status Kuorum (k-of-n)"]
+        SignA --> ManifestJSON["Berkas Manifes Integritas:<br/>- Versi Protokol<br/>- Nilai Hash Dokumen (h_D)<br/>- Hash Daftar Pejabat (h_U)<br/>- Token Bukti Persetujuan (sig_i)<br/>- Status Kuorum (k-of-n)"]
         SignB --> ManifestJSON
     end
 ```
@@ -219,41 +222,41 @@ Modul **Spreadsheet IO** menggunakan pustaka `ExcelJS` dengan pembersihan otomat
 
 ```mermaid
 flowchart TD
-    FileIn[/Berkas Spreadsheet .xlsx atau .csv/] --> CheckType{Format Berkas?}
+    FileIn[/"Berkas Spreadsheet .xlsx atau .csv"/] --> CheckType{"Format Berkas?"}
     
-    CheckType -->|XLSX| LoadXlsx[Baca WorkBook via ExcelJS]
-    CheckType -->|CSV| LoadCsv[Baca Berkas CSV via ExcelJS Parser]
+    CheckType -->|XLSX| LoadXlsx["Baca WorkBook via ExcelJS"]
+    CheckType -->|CSV| LoadCsv["Baca Berkas CSV via ExcelJS Parser"]
     
-    LoadXlsx --> GetSheet[Pilih Lembar Kerja Aktif / Pertama]
+    LoadXlsx --> GetSheet["Pilih Lembar Kerja Aktif / Pertama"]
     LoadCsv --> GetSheet
     
-    GetSheet --> ReadHeaders[Ekstraksi Baris Header Kolom 1]
-    ReadHeaders --> CleanHeaders["Header Sanitization:\n- Trim Spasi Kiri/Kanan\n- Normalisasi Huruf/Case"]
+    GetSheet --> ReadHeaders["Ekstraksi Baris Header Kolom 1"]
+    ReadHeaders --> CleanHeaders["Header Sanitization:<br/>- Trim Spasi Kiri/Kanan<br/>- Normalisasi Huruf/Case"]
     
-    CleanHeaders --> LoopRows[Iterasi Setiap Baris Data Berikutnya]
+    CleanHeaders --> LoopRows["Iterasi Setiap Baris Data Berikutnya"]
     
     subgraph RowSanitization["Sanitasi Data Tiap Baris"]
-        LoopRows --> CheckEmpty{Apakah Seluruh Sel Kosong?}
-        CheckEmpty -->|Ya| SkipRow[Abaikan / Lewati Baris]
-        CheckEmpty -->|Tidak| ParseCells[Ekstraksi Nilai Tiap Sel]
+        LoopRows --> CheckEmpty{"Apakah Seluruh Sel Kosong?"}
+        CheckEmpty -->|Ya| SkipRow["Abaikan / Lewati Baris"]
+        CheckEmpty -->|Tidak| ParseCells["Ekstraksi Nilai Tiap Sel"]
         
-        ParseCells --> CheckDate{Apakah Tipe Data Date?}
-        CheckDate -->|Ya| ConvertDate["Konversi ke Teks Tanggal Indonesia\nContoh: 17 Agustus 2026\n(Cegah serial angka 45546)"]
-        CheckDate -->|Tidak| CheckRich{Apakah Rich Text / Formula?}
+        ParseCells --> CheckDate{"Apakah Tipe Data Date?"}
+        CheckDate -->|Ya| ConvertDate["Konversi ke Teks Tanggal Indonesia<br/>Contoh: 17 Agustus 2026<br/>(Cegah serial angka 45546)"]
+        CheckDate -->|Tidak| CheckRich{"Apakah Rich Text / Formula?"}
         
-        CheckRich -->|Ya| ExtractFormula[Ambil Nilai Akhir / Result Text]
-        CheckRich -->|Tidak| TrimText[Trim Spasi Teks Biasa]
+        CheckRich -->|Ya| ExtractFormula["Ambil Nilai Akhir / Result Text"]
+        CheckRich -->|Tidak| TrimText["Trim Spasi Teks Biasa"]
         
-        ConvertDate --> BuildRow[Bentuk Objek Data Penerima]
+        ConvertDate --> BuildRow["Bentuk Objek Data Penerima"]
         ExtractFormula --> BuildRow
         TrimText --> BuildRow
     end
     
-    BuildRow --> AddToList[Tambahkan ke Koleksi Data Siap Cetak]
+    BuildRow --> AddToList["Tambahkan ke Koleksi Data Siap Cetak"]
     AddToList --> LoopRows
     SkipRow --> LoopRows
     
-    LoopRows -->|Semua Baris Selesai| FinalData[/Array Data Penerima Valid/]
+    LoopRows -->|Semua Baris Selesai| FinalData[/"Array Data Penerima Valid"/]
 ```
 
 ---
@@ -264,27 +267,27 @@ Diagram alur berikut mengilustrasikan bagaimana berkas sertifikat diperiksa inte
 
 ```mermaid
 flowchart TD
-    StartVerify([Mulai Verifikasi Dokumen]) --> InputDoc[/Unggah Dokumen PDF/]
-    InputDoc --> ExtractSig[Ekstraksi Signature Dictionaries & Revisions]
+    StartVerify(["Mulai Verifikasi Dokumen"]) --> InputDoc[/"Unggah Dokumen PDF"/]
+    InputDoc --> ExtractSig["Ekstraksi Signature Dictionaries & Revisions"]
     
-    ExtractSig --> CheckPAdES{Apakah Memuat Tanda Tangan PAdES Valid?}
-    CheckPAdES -->|Tidak| InvalidNoSig["Status: TIDAK SAH\nDokumen tidak memiliki tanda tangan digital resmi"]
+    ExtractSig --> CheckPAdES{"Apakah Memuat Tanda Tangan PAdES Valid?"}
+    CheckPAdES -->|Tidak| InvalidNoSig["Status: TIDAK SAH<br/>Dokumen tidak memiliki tanda tangan digital resmi"]
     
-    CheckPAdES -->|Ya| InspectRevisions[Periksa Seluruh Riwayat Revisi PDF]
+    CheckPAdES -->|Ya| InspectRevisions["Periksa Seluruh Riwayat Revisi PDF"]
     
-    InspectRevisions --> CheckByteRange[Verifikasi Hash ByteRange Tiap Tanda Tangan]
-    CheckByteRange --> ByteRangeValid{Hash ByteRange Cocok?}
-    ByteRangeValid -->|Tidak| InvalidTamper["Status: TIDAK SAH (DOKUMEN DIMODIFIKASI)\nPerubahan isi PDF terdeteksi setelah ditandatangani"]
+    InspectRevisions --> CheckByteRange["Verifikasi Hash ByteRange Tiap Tanda Tangan"]
+    CheckByteRange --> ByteRangeValid{"Hash ByteRange Cocok?"}
+    ByteRangeValid -->|Tidak| InvalidTamper["Status: TIDAK SAH (DOKUMEN DIMODIFIKASI)<br/>Perubahan isi PDF terdeteksi setelah ditandatangani"]
     
-    ByteRangeValid -->|Ya| VerifyCertChain[Verifikasi Rantai Sertifikat X.509]
-    VerifyCertChain --> CertCheck{Diterbitkan oleh Root CA Resmi & Belum Kadaluarsa?}
-    CertCheck -->|Tidak| InvalidCert["Status: PERINGATAN\nSertifikat tidak dipercaya atau telah kedaluwarsa"]
+    ByteRangeValid -->|Ya| VerifyCertChain["Verifikasi Rantai Sertifikat X.509"]
+    VerifyCertChain --> CertCheck{"Diterbitkan oleh Root CA Resmi & Belum Kadaluarsa?"}
+    CertCheck -->|Tidak| InvalidCert["Status: PERINGATAN<br/>Sertifikat tidak dipercaya atau telah kedaluwarsa"]
     
-    CertCheck -->|Ya| CheckQuorum{Apakah Seluruh Pejabat Berwenang Telah Menandatangani?}
-    CheckQuorum -->|Belum Lengkap| PartialValid["Status: SEBAGIAN\nDokumen sah namun masih menunggu tanda tangan pejabat lain"]
-    CheckQuorum -->|Lengkap| FullyValid["Status: SAH & RESMI LENGKAP\nIntegritas terjamin, kuorum terpenuhi, tanda tangan valid"]
+    CertCheck -->|Ya| CheckQuorum{"Apakah Seluruh Pejabat Berwenang Telah Menandatangani?"}
+    CheckQuorum -->|Belum Lengkap| PartialValid["Status: SEBAGIAN<br/>Dokumen sah namun masih menunggu tanda tangan pejabat lain"]
+    CheckQuorum -->|Lengkap| FullyValid["Status: SAH & RESMI LENGKAP<br/>Integritas terjamin, kuorum terpenuhi, tanda tangan valid"]
     
-    InvalidNoSig --> FinishVerify([Hasil Verifikasi Ditampilkan])
+    InvalidNoSig --> FinishVerify(["Hasil Verifikasi Ditampilkan"])
     InvalidTamper --> FinishVerify
     InvalidCert --> FinishVerify
     PartialValid --> FinishVerify
