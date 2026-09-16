@@ -106,6 +106,9 @@ flowchart LR
 4. **Step 4: Signing**: Eksekusi penandatanganan digital PAdES untuk masing-masing pejabat berwenang dengan stempel visual bertahap.
 5. **Step 5: Download**: Unduh seluruh sertifikat PDF yang telah sah bersama berkas manifes integritas dalam satu arsip ZIP.
 
+> 💡 **Dokumentasi Visual Arsitektur Lengkap**:
+> Untuk melihat diagram alur rinci dari setiap modul (Arsitektur Komponen, Sequence Diagram Multi-Signing PAdES, Sanitasi ExcelJS, dan Verifikasi Kriptografi), silakan buka **[docs/FLOW.md](docs/FLOW.md)**.
+
 ---
 
 ## 🛠️ Tumpukan Teknologi (Tech Stack)
