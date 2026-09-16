@@ -71,7 +71,7 @@ Di mana:
 Seluruh pejabat berwenang menandatangani objek data kanonikal yang seragam ($M$). Hal ini menjamin bahwa seluruh pihak menyepakati berkas yang sama, kelompok otoritas yang sama, dan kuorum yang sama:
 
 $$
-M = \text{protocol} \parallel \text{document\_id} \parallel h_D \parallel h_U \parallel \text{policy} \parallel k \parallel n \parallel \text{version}
+M = \text{protocol} \parallel \text{document-id} \parallel h_D \parallel h_U \parallel \text{policy} \parallel k \parallel n \parallel \text{version}
 $$
 
 Contoh bentuk representasi string terstandarisasi:
@@ -125,7 +125,7 @@ Di mana:
 Integritas byte range tingkat biner memenuhi rumus:
 
 $$
-h_{\text{revision}_j} = \text{SHA-256}\Big(\text{bytes}(D_j) \setminus \text{Contents}(\sigma_j)\Big)
+h_{\text{revision}, j} = \text{SHA-256}\Big(\text{bytes}(D_j) \setminus \text{Contents}(\sigma_j)\Big)
 $$
 
 ---

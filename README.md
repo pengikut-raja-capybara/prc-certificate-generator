@@ -32,6 +32,26 @@ Semua proses rendering grafis, pembuatan PDF, kalkulasi digest, hingga penandata
 
 ---
 
+## 🖼️ Tangkapan Layar Aplikasi (Screenshots)
+
+<div align="center">
+
+### 1. Visual WYSIWYG Template Designer (Fabric.js v7)
+![Visual Template Editor](docs/assets/step1-template-editor.png)
+
+### 2. Input Data & Authorized Signer Mapping (ExcelJS)
+![Input Data & Signer Mapping](docs/assets/step2-input-data.png)
+
+### 3. Kompilasi PDF Dasar & Kesiapan Dokumen
+![Generate Step](docs/assets/step3-generate.png)
+
+### 4. PKI Hub & Manajemen Kunci Digital X.509
+![Key Manager PKI Hub](docs/assets/key-manager-pki.png)
+
+</div>
+
+---
+
 ## 🌟 Fitur Utama
 
 ### 1. 🎨 Visual WYSIWYG Template Designer
